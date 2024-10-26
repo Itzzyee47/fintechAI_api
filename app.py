@@ -13,7 +13,7 @@ cors = CORS(app)
 
 
 @app.route("/")
-def index(request):
+def index():
     
     return render_template('pages/index.html')
 
@@ -24,6 +24,19 @@ def get_financial_advice():
     data = json.loads(raw_data)
     try:
         bot_reply = getFinancialAdvice()
+        
+        return bot_reply
+    except Exception as error:
+        return error     
+    
+@app.route("/chat",methods=['POST'])
+def chat():
+    raw_data = request.data
+    data = json.loads(raw_data)
+    try:
+        question = data['question']
+        #return question
+        bot_reply = getResponds(question)
         
         return bot_reply
     except Exception as error:
