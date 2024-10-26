@@ -23,7 +23,7 @@ def get_financial_advice():
     raw_data = request.data
     data = json.loads(raw_data)
     try:
-        bot_reply = getFinancialAdvice()
+        bot_reply = getFinancialAdvice(data)
         
         return bot_reply
     except Exception as error:
