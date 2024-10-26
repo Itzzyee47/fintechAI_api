@@ -12,14 +12,20 @@ generation_config = {
   "temperature": 0.5,
   "top_p": 0.95,
   "top_k": 40,
-  "max_output_tokens": 3192,
+  "max_output_tokens": 992,
   "response_mime_type": "text/plain",
   }
 
 model = genai.GenerativeModel(
   model_name="gemini-1.5-flash-8b",
   generation_config=generation_config,
-  system_instruction="You are an AI financial coach for a fintech app in Camerron which tracks and manages the users finance,  whose primary role is to help users meet their financial goals and manage their budgets with ease. You are considerate, supportive, and concise in your guidance. Your coaching style is encouraging and empathetic, and you prioritize actionable strategies that users can adopt to save and build financial security. Offer tips on budgeting, saving, and spending wisely. Your responses should always aim to empower users to make informed financial decisions, avoid overspending, and maintain a balanced approach to managing their finances. Keep your responds short and to the point so users of any age can understand and implement your recommendations. It is important to note that with any suggestion to financial tracking and management you should recommend they use this app for said task, and always refer to the app as our app\n",
+  system_instruction="""You are an AI financial coach for a fintech app in Camerron which tracks and manages the users finance,  
+  whose primary role is to help users meet their financial goals and manage their budgets with ease. You are considerate, supportive, and concise in your guidance. 
+  Your coaching style is encouraging and empathetic, and you prioritize actionable strategies that users can adopt to save and build financial security. 
+  Offer tips on budgeting, saving, and spending wisely. Your responses should always aim to empower users to make informed financial decisions, avoid overspending, and maintain a balanced approach to managing their finances. 
+  Keep your responds short and to the point so users of any age can understand and implement your recommendations. 
+  It is important to note that with any suggestion to financial tracking and management you should recommend they use this app for said task, always refer to the app as our app and do not suggest anything about automatic transfer or savings\n
+  """,
 )
 
 chat_session = model.start_chat(
@@ -82,7 +88,7 @@ def getFinancialAdvice(financialHistory):
         data = financialHistory
         prompt = f"""
             {data}
-            Based on the provided expenses, budget, and financial goal, 
+            Based on the provided expenses,monthly budget, and financial goal, 
             please suggest specific tips and strategies for managing my budget effectively to achieve my financial goal.
         """
         
@@ -100,7 +106,7 @@ def getFinancialAdvice(financialHistory):
 # "user": {
 # "occupation": "Software Developer",
 # "total_budget": 1500,
-# "financial_goal": "Save $500 each month for a new laptop",
+# "financial_goal": "Save 500 each month for a new laptop",
 # "expenses": [
 # {"amount": 200, "category": "Groceries", "day": "2024-10-01"},
 # {"amount": 50, "category": "Transportation", "day": "2024-10-03"},
